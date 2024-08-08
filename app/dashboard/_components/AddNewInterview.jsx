@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 import {
   Dialog,
@@ -20,20 +19,21 @@ import { LoaderCircle } from "lucide-react";
 import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
-import moment from 'moment'
-
+import moment from "moment";
+import { useRouter } from "next/navigation";
 
 function AddNewInterview() {
   const [opemDailog, setOpenDialog] = useState(false);
   const [jobPosition, setJobPosition] = useState();
   const [jobDesc, setJobDesc] = useState();
   const [jobExperince, setExperince] = useState();
-  const [loading,setLoading]=useState(false);
-  const [jsonResponse,setJsonResponse]=useState([]);
-  const {user}=useUser()
+  const [loading, setLoading] = useState(false);
+  const [jsonResponse, setJsonResponse] = useState([]);
+  const { user } = useUser();
+  const router=useRouter();
 
   const onSubmit = async (e) => {
-    setLoading(true)
+    setLoading(true);
     e.preventDefault();
     console.log(jobDesc, jobExperince, jobPosition);
 
@@ -48,36 +48,39 @@ function AddNewInterview() {
       process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
       " questions with answerd in json fromat";
 
-      const result= await chatSession.sendMessage(InputPrompt)
+    const result = await chatSession.sendMessage(InputPrompt);
 
-      const MockResponse=(result.response.text()).replace('```json','').replace('```','')
-      console.log(JSON.parse(MockResponse))
-      setJsonResponse(MockResponse)
-if(MockResponse){
+    const MockResponse = result.response
+      .text()
+      .replace("```json", "")
+      .replace("```", "");
+    console.log(JSON.parse(MockResponse));
+    setJsonResponse(MockResponse);
+    if (MockResponse) {
+      const resp = await db
+        .insert(MockInterview)
+        .values({
+          mockId: uuidv4(),
+          jsonMockResp: MockResponse,
+          jobPosition: jobPosition,
+          jobDesc: jobDesc,
+          jobExperience: jobExperince,
+          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format("DD-MM-YYYY"),
+        })
+        .returning({ mockId: MockInterview.mockId });
 
+      console.log(resp);
 
-      const  resp=await db.insert(MockInterview).values({
-        mockId:uuidv4(),
-        jsonMockResp:MockResponse,
-        jobPosition:jobPosition,
-        jobDesc:jobDesc,
-        jobExperience:jobExperince,
-        createdBy:user?.primaryEmailAddress?.emailAddress,
-        createdAt: moment().format('DD-MM-YYYY')
-
-      }).returning({mockId:MockInterview.mockId})
-
-
-      console.log(resp)
-    }
-    else{
+      if(resp){
+        setOpenDialog(false)
+        router.push('/dashboar/interview/'+resp[0]?.mockId)
+      }
+    } else {
       console.log("ERROR");
-      
     }
-      setLoading(false)
-
-  }
-
+    setLoading(false);
+  };
 
   return (
     <div>
@@ -139,10 +142,15 @@ if(MockResponse){
                     Cancel
                   </Button>
                   <Button disabled={loading} type="submit">
-                    {loading?
-                    <>
-                    <LoaderCircle className="animate-spin"/>'generating'</>:'Start Interview'}
-                    </Button>
+                    {loading ? (
+                      <>
+                        <LoaderCircle className="animate-spin" />
+                        'generating'
+                      </>
+                    ) : (
+                      "Start Interview"
+                    )}
+                  </Button>
                 </div>
               </form>
             </DialogDescription>
