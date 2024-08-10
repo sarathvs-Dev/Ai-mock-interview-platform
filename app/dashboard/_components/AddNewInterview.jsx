@@ -55,7 +55,7 @@ function AddNewInterview() {
       .replace("```json", "")
       .replace("```", "");
     console.log(JSON.parse(MockResponse));
-    setJsonResponse(MockResponse);
+    setJsonResponse(JSON.parse(MockResponse));
     if (MockResponse) {
       const resp = await db
         .insert(MockInterview)
@@ -74,7 +74,7 @@ function AddNewInterview() {
 
       if(resp){
         setOpenDialog(false)
-        router.push('/dashboar/interview/'+resp[0]?.mockId)
+        router.push('/dashboard/interview/'+resp[0]?.mockId)
       }
     } else {
       console.log("ERROR");
