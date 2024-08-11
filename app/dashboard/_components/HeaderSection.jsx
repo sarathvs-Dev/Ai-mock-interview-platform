@@ -1,6 +1,7 @@
 "use client";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -8,7 +9,8 @@ function HeaderSection() {
   const path = usePathname();
   return (
     <div className="flex p-4 items-center justify-between bg-secondary shadow-sm">
-      <Image src={"/logo.svg"} width={160} height={100} alt="logo" />
+         <Link href={'/dashboard'}>
+      <Image src={"/logo.svg"} width={160} height={100} alt="logo" /></Link>
       <ul className="hidden md:flex gap-6">
         {/* <li
           className={`hover:text-primary hover:font-bold transition-all cursor-pointer ${
