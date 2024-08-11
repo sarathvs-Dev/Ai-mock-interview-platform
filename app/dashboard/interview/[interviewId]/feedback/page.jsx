@@ -44,7 +44,7 @@ function Feedback({ params }) {
 
 
       <h2 className="text-primary text-lg my-3">
-        Your overall interview rating: <strong>5/10</strong>
+        {/* Your overall interview rating: <strong>5/10</strong> */}
       </h2>
       <h2 className="text-sm text-gray-500">
         Find below interview question with correct answer, Your answer and

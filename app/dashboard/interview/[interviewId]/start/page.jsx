@@ -55,7 +55,7 @@ function StartInterview({ params }) {
           interviewData={interviewData}
         />
       </div>
-      <div className="flex justify-end gap-6">
+      <div className="flex justify-end gap-6 mb-7">
         {activeQuestionIndex > 0 && <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
         {activeQuestionIndex != mockInterviewQuestion?.length - 1 && (
           <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>
