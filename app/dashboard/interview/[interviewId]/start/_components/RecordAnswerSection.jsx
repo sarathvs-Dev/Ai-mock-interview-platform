@@ -48,6 +48,7 @@ if(!isRecording&&userAnswer.length>10){
   },[userAnswer])
 
   const StartStopRecoding = async () => {
+
     if (isRecording) {
       stopSpeechToText();
       // if (userAnswer?.length < 10) {
@@ -63,6 +64,7 @@ if(!isRecording&&userAnswer.length>10){
   };
 
   const UpdateUserAnswer= async()=>{
+
     setLoading(true);
   console.log(userAnswer)
     const feedbackPromt =
