@@ -13,6 +13,7 @@ import {
 import { ChevronsUpDown, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import FeedbackHeader from "./_components/FeedbackHeader";
 
 function Feedback({ params }) {
   const [feedbackList, setFeedbackList] = useState([]);
@@ -39,17 +40,18 @@ function Feedback({ params }) {
       {feedbackList?.length==0?
 <h2 className="font-bold text-xl text-gray-500">No Interview Feedback Record Found</h2>
 :<>
-      <h2 className="text-3xl font-bold text-green-500">Congratulations</h2>
+
+<FeedbackHeader/>
+      {/* <h2 className="text-3xl font-bold text-green-500">Congratulations</h2>
       <h2 className="font-bold text-2xl">Here is your Interview Feedback</h2>
 
 
       <h2 className="text-primary text-lg my-3">
-        {/* Your overall interview rating: <strong>5/10</strong> */}
       </h2>
       <h2 className="text-sm text-gray-500">
         Find below interview question with correct answer, Your answer and
         feedback for improvement
-      </h2>
+      </h2> */}
 
       {feedbackList &&
         feedbackList.map((item, index) => (
@@ -71,7 +73,7 @@ function Feedback({ params }) {
         ))}
 </>}
 
-        <Button onClick={()=>router.replace('/dashboard')}>Go Home</Button>
+        <Button onClick={()=>router.replace('/dashboard')} className="my-10">Go Home</Button>
     </div>
   );
 }
