@@ -18,7 +18,7 @@ export default function Home() {
   return (
    <div>
     <section className="relative">
-      <PageIllustration/>
+      {/* <PageIllustration/> */}
       {/* <PageIllustration /> */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Hero content */}
