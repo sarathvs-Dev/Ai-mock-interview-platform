@@ -48,9 +48,12 @@ if(!isRecording&&userAnswer.length>10){
   },[userAnswer])
 
   const StartStopRecoding = async () => {
+    console.log("ghjk")
 
     if (isRecording) {
       stopSpeechToText();
+      console.log("atop")
+
       // if (userAnswer?.length < 10) {
       //   setLoading(false);
       //   toast("Error while saving your answer,Please record again");
