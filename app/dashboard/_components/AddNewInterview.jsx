@@ -81,6 +81,10 @@ function AddNewInterview() {
     }
     setLoading(false);
   };
+  const closeModal=()=>{
+    setOpenDialog(false);
+     setLoading(false);
+  }
 
   return (
     <div>
@@ -90,7 +94,7 @@ function AddNewInterview() {
       >
         <h2 className="font-bold text-lg text-center">+ Add New</h2>
       </div>
-      <Dialog open={opemDailog}>
+      <Dialog open={opemDailog} >
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl">
@@ -107,7 +111,7 @@ function AddNewInterview() {
 
                   <div className="mt-7 my-3">
                     <label>Job Role/Job Position</label>
-                    <Input
+                    <Input className="mt-2"
                       placeholder="Ex. Full stack Developer"
                       required
                       onChange={(event) => setJobPosition(event.target.value)}
@@ -115,7 +119,7 @@ function AddNewInterview() {
                   </div>
                   <div className="my-3">
                     <label>Job Description/Tech Stack(In Short)</label>
-                    <Textarea
+                    <Textarea className="mt-2"
                       placeholder="Ex. React,Angular,Node,Python,Mysql etc"
                       required
                       onChange={(event) => setJobDesc(event.target.value)}
@@ -123,7 +127,7 @@ function AddNewInterview() {
                   </div>
                   <div className="mt-7 my-3">
                     <label>Years of Experience</label>
-                    <Input
+                    <Input className="mt-2"
                       placeholder="Ex. 5"
                       type="number"
                       required
@@ -137,7 +141,7 @@ function AddNewInterview() {
                   <Button
                     type="button"
                     variant="ghost"
-                    onClick={() => setOpenDialog(false)}
+                    onClick={closeModal}
                   >
                     Cancel
                   </Button>
@@ -145,7 +149,7 @@ function AddNewInterview() {
                     {loading ? (
                       <>
                         <LoaderCircle className="animate-spin" />
-                        'generating'
+                        Generating
                       </>
                     ) : (
                       "Start Interview"
