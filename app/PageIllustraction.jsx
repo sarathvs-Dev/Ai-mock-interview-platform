@@ -11,9 +11,9 @@ export default function PageIllustration() {
         aria-hidden="true"
       >
         <Image
-          className="max-w-none w-full"
+          className="max-w-none "
           src={Stripes}
-          width={1200}
+          width={768}
           alt="Stripes"
           priority
         />
